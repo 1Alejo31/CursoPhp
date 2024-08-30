@@ -1,56 +1,115 @@
 <?php
-
-$apiUrl = 'https://whenisthenextmcufilm.com/api';
-$ch = curl_init($apiUrl);
+#Inicializar una nueva sesion de Curl; ch = cURL handle
+const API_URL = 'https://whenisthenextmcufilm.com/api';
+$ch = curl_init(API_URL);
+//INDICIAR QUE QUEREMOS RECIBIR EL RESULTADO DE LA PETICION NO MASTRAR EN PANTALLA
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+/**Ejecutar la peticion 
+ * y guardamos el resultado/ */
+
 $result = curl_exec($ch);
-curl_close($ch);
 $data = json_decode($result, true);
+curl_close($ch);
+
+var_dump($data);
+echo '<br>';
+$result2 = file_get_contents(API_URL, true); // solo para hacer un get
+var_dump($result2);
+echo '<br>';
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La próxima película de Marvel</title>
-    <link rel="stylesheet" href="css/pico.min.css">
-    <style>
-        :root {
-            color-scheme: light dark;
-        }
+<?php
+$name = "Alejo";
+define('logoPhp', 'https://pngimg.com/uploads/php/small/php_PNG10.png');
+?>
+<img src="<?= logoPhp ?>" alt="PHP Logo">
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
 
-        main {
-            text-align: center;
-        }
+<h1><?php echo "Mi primera app "; ?></h1>
+<?= "Mi primera app con php por " . $name; ?>
 
-        img {
-            margin: 0 auto;
-            display: block;
-        }
-    </style>
-</head>
 
-<body>
-    <main>
-        <section>
-            <img src="<?=$data['poster_url']?>" alt="Poster de <?=$data['title']?>" srcset="" width="300" style="border-radius: 16px">
-        </section>
-        <hgroup>
-            <h2><?=$data['title']?> se estrana en <?=$data['days_until']?> días</h2>
-            <p>Fecha de estreno: <?=$data['release_date']?></p>
-        </hgroup>
-    </main>
-</body>
+<?php
+$name = 'Alejo';
+$lastName = 'Gonzalez';
+$age = 26;
+$isDev = true;
 
-</html>
+const mail = "alejo.g31@hotmail.com";
+
+echo '<br>';
+echo '<br>';
+var_dump($name);
+echo '<br>';
+var_dump($lastName);
+echo '<br>';
+var_dump($age);
+echo '<br>';
+var_dump($isDev);
+echo '<br>';
+gettype($isDev);
+echo '<br>';
+gettype(mail);
+echo '<br>';
+$output = "Hola mi nombre es $name $lastName, con una edad de $age";
+echo $output;
+
+$isOld = $age > 44;
+if ($isOld) {
+    echo "<h2>Eres Viejo, lo siento</h2>";
+} else {
+    echo "<h2> Aun eres joven <h2>";
+}
+$outputAge = $isOld ? 'Eres Viejo' : 'Eres joven, felicidades';
+?>
+<?= $outputAge ?>
+
+<?php
+echo '<br>';
+$outputAge = match (true) {
+    $age <= 2 => "Eres un bebe, $name",
+    $age <= 10 => "Eres un niño, $name",
+    $age <= 17 => "Eres un adolecente, $name",
+    default => "Eres un adulto, $name"
+};
+
+echo $outputAge;
+
+$bestLanguages = ["PHP", "JAVA", "PYTHON"];
+$bestLanguages[3] = "JavaScript";
+$bestLanguages[] = "TypeScript";
+
+print_r($bestLanguages);
+
+$person = [
+    "name" => "Alejo",
+    "age" => 26,
+    "city" => "Bogota"
+];
+
+echo '<br>';
+echo $person['name'];
+echo '<br>';
+print_r($person);
+
+?>
+
+<ul>
+    <?php foreach ($bestLanguages as $key => $language) : ?>
+        <li><?= $key . ' ' . $language ?></li>
+    <?php endforeach; ?>
+</ul>
+
+
+<style>
+    :root {
+        color-scheme: ligth dark;
+    }
+
+    body {
+        display: grid;
+        place-content: center;
+    }
+</style>
